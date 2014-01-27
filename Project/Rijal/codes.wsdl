@@ -1,0 +1,51 @@
+
+<definitions targetNamespace="urn:DataPendudukService">
+    <types>
+        <xsd:schema targetNamespace="urn:DataPendudukService">
+            <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+            <xsd:import namespace="http://schemas.xmlsoap.org/wsdl/"/>
+            <xsd:complexType name="infopenduduk">
+                <xsd:all>
+                    <xsd:element name="prop_id" type="xsd:string"/>
+                    <xsd:element name="prop_kode" type="xsd:string"/>
+                    <xsd:element name="prop_nama" type="xsd:string"/>
+                    <xsd:element name="prop_ibukota" type="xsd:string"/>
+                    <xsd:element name="prop_jml_penduduk_pria" type="xsd:string"/>
+                    <xsd:element name="prop_jml_penduduk_wanita" type="xsd:string"/>
+                    <xsd:element name="prop_website" type="xsd:string"/>
+                    <xsd:element name="prop_map_latitude" type="xsd:string"/>
+                    <xsd:element name="prop_map_longitude" type="xsd:string"/>
+                </xsd:all>
+            </xsd:complexType>
+        </xsd:schema>
+    </types>
+    <message name="pendudukinfoRequest">
+        <part name="pendudukid" type="xsd:string"/>
+    </message>
+    <message name="pendudukinfoResponse">
+        <part name="return" type="tns:infopenduduk"/>
+    </message>
+    <portType name="DataPendudukPortType">
+        <operation name="pendudukinfo">
+            <input message="tns:pendudukinfoRequest"/>
+            <output message="tns:pendudukinfoResponse"/>
+        </operation>
+    </portType>
+    <binding name="DataPendudukBinding" type="tns:DataPendudukPortType">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="pendudukinfo">
+            <soap:operation soapAction="urn:DataPendudukService#pendudukinfo" style="rpc"/>
+            <input>
+                <soap:body use="encoded" namespace="urn:DataPendudukService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body use="encoded" namespace="urn:DataPendudukService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="DataPenduduk">
+        <port name="DataPendudukPort" binding="tns:DataPendudukBinding">
+            <soap:address location="http://localhost/TugasRijalWS/serverPenduduk.php"/>
+        </port>
+    </service>
+</definitions>

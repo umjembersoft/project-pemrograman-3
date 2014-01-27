@@ -1,0 +1,37 @@
+definitions xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="urn:kursService" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="urn:kursService">
+<types>
+    <xsd:schema targetNamespace="urn:kursService">
+        <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+        <xsd:import namespace="http://schemas.xmlsoap.org/wsdl/"/>
+    </xsd:schema>
+</types>
+<message name="kursRequest">
+    <part name="dollar" type="xsd:int"/>
+</message>
+<message name="kursResponse">
+    <part name="return" type="xsd:long"/>
+</message>
+<portType name="KursPortType">
+    <operation name="kurs">
+        <input message="tns:kursRequest"/>
+        <output message="tns:kursResponse"/>
+    </operation>
+</portType>
+<binding name="KursBinding" type="tns:KursPortType">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="kurs">
+        <soap:operation soapAction="urn:kursService#kurs" style="rpc"/>
+        <input>
+            <soap:body use="encoded" namespace="urn:kursService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+        </input>
+        <output>
+            <soap:body use="encoded" namespace="urn:kursService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+        </output>
+    </operation>
+</binding>
+<service name="Kurs">
+    <port name="KursPort" binding="tns:KursBinding">
+        <soap:address location="http://localhost/Kurs/kurs.php"/>
+    </port>
+</service>
+</definitions>

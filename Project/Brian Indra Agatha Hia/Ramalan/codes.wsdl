@@ -1,0 +1,45 @@
+
+<definitions xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="urn:RamalanService" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="urn:RamalanService">
+<types>
+<xsd:schema targetNamespace="urn:RamalanService">
+<xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/"></xsd:import>
+<xsd:import namespace="http://schemas.xmlsoap.org/wsdl/"></xsd:import>
+<xsd:complexType name="inforamal">
+<xsd:all>
+<xsd:element name="nama_zodiak" type="xsd:string"></xsd:element>
+<xsd:element name="tanggal" type="xsd:string"></xsd:element>
+<xsd:element name="ramalan" type="xsd:string"></xsd:element>
+<xsd:element name="keuangan" type="xsd:string"></xsd:element>
+<xsd:element name="kesehatan" type="xsd:string"></xsd:element>
+<xsd:element name="angka_keberuntungan" type="xsd:string"></xsd:element>
+</xsd:all>
+</xsd:complexType>
+</xsd:schema>
+</types>
+<message name="RamalanZodiakInfoRequest">
+<part name="ramalid" type="xsd:string"></part>
+</message>
+<message name="RamalanZodiakInfoResponse">
+<part name="return" type="tns:inforamal"></part>
+</message>
+<portType name="RamalanPortType">
+<operation name="RamalanZodiakInfo">
+</portType>
+<binding name="RamalanBinding" type="tns:RamalanPortType">
+<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"></soap:binding>
+<operation name="RamalanZodiakInfo">
+<soap:operation soapAction="urn:RamalanService#RamalanZodiakInfo" style="rpc"></soap:operation>
+<input kl_virtual_keyboard_secure_input="on">
+<soap:body use="encoded" namespace="urn:RamalanService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></soap:body>
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:RamalanService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></soap:body>
+</output>
+</operation>
+</binding>
+<service name="Ramalan">
+<port name="RamalanPort" binding="tns:RamalanBinding">
+<soap:address location="http://localhost/LatihanHtdocs/Ramalan/ramal.php"></soap:address>
+</port>
+</service>
+</definitions>

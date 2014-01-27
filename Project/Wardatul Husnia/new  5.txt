@@ -1,0 +1,17 @@
+<?php
+session_start();
+require_once "class/class_captcha.php";
+$captcha = new Captcha();
+$jawaban = $_POST['jawaban'];
+$indexcaptcha = $captcha->indexCaptcha($jawaban);
+if($indexcaptcha==false){
+	echo "<center>Jawaban yang anda masukan salah<br>
+	<a href='index.php'>Ulangi</a>";
+} else {
+	echo "Nama: $_POST[nama]<br />
+	Email: $_POST[email]<br />
+	Pesan: $_POST[pesan]<br />";
+}
+$HTTP_RAW_POST_DATA = isset ($HTTP_RAW_POST_DATA)? $HTTP_RAW_POST_DATA: '';
+            $ws_srv->service{$HTTP_RAW_POST_DATA};
+?>
